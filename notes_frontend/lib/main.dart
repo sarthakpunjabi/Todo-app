@@ -1,7 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:notes_frontend/create.dart';
+import 'package:notes_frontend/update.dart';
 import 'note.dart';
 
 void main() {
@@ -75,7 +76,16 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               title: Text(notes[index].note),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => UpdatePage(
+                            client: client,
+                            id: notes[index].id,
+                            note: notes[index].note,
+                          )),
+                );
+              },
               trailing: IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: () => _deleteNote(notes[index].id),
@@ -85,7 +95,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addNote,
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => CreatePage(
+                    client: client,
+                  )),
+        ),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
