@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart';
+import 'main.dart';
 
 class CreatePage extends StatefulWidget {
   final Client client;
@@ -36,6 +37,7 @@ class _CreatePageState extends State<CreatePage> {
                       Uri.parse('http://127.0.0.1:8000/notes/create/'),
                       body: {'body': controller.text});
                   Navigator.pop(context);
+                  
                 },
                 child: Text("Create Note"))
           ],

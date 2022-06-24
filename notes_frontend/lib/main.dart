@@ -54,7 +54,15 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
-  void _addNote() {}
+  void _addNote() async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: (context) => CreatePage(
+                client: client,
+              )),
+    );
+    _retrieveNotes();
+  }
 
   void _deleteNote(int id) async {
     await client.delete(Uri.parse('http://127.0.0.1:8000/notes/$id/delete/'));
@@ -95,12 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => CreatePage(
-                    client: client,
-                  )),
-        ),
+        onPressed: () => _addNote(),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
